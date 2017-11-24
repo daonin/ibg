@@ -62,7 +62,7 @@
     </nav>
 </section>
 
-<section class="engine"><a href="https://mobirise.co/m">bootstrap table</a></section><section class="mbr-section content5 cid-qy6fUEIvr9 mbr-parallax-background" id="content5-1o" data-rv-view="257">
+<section class="mbr-section content5 cid-qy6fUEIvr9 mbr-parallax-background" id="content5-1o" data-rv-view="257">
 
     
 
@@ -612,10 +612,12 @@
     </div>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="media-container-column col-lg-8" data-form-type="formoid">
-                    <div data-form-alert="" hidden="">Спасибо! Мы обязательно с вами свяжемся!</div>
-            
-                    <form class="mbr-form" action="http://itbuildgroup.ru/" method="post" data-form-title="Mobirise Form"><input type="hidden" data-form-email="true" value="lqGnYrhnS3153xowTfdtHgdp6APyFsUw2ZDElt4k18F1G/mQs/krJkEDoMxc2VxZoda9W+E3Rn8VGKP9gXNU+Ilo4eY21d7SzgeA5XHMSkn8SrScdaMqqi5kuaeyIEs0">
+            <div class="media-container-column col-lg-8" data-form-type="formoid0">
+                    <div data-form-alert="" hidden="" id="success-form-mes" class="alert alert-form alert-success text-xs-center">Спасибо! Мы обязательно свяжемся с Вами!</div>
+                    <div data-form-alert="" hidden="" id="error-form-mes" class="alert alert-form alert-danger text-xs-center">Что-то пошло не так... Попробуйте еще раз попозже.</div>
+
+                    <form class="mbr-form" onsubmit="submitForm(); return false;">
+                       
                         <div class="row row-sm-offset">
                             <div class="col-md-4 multi-horizontal" data-for="name">
                                 <div class="form-group">
@@ -711,7 +713,30 @@
   <script src="assets/jarallax/jarallax.min.js"></script>
   <script src="assets/theme/js/script.js"></script>
   <script src="assets/formoid/formoid.min.js"></script>
-  
+  <script  type="text/javascript">
+    function _(id){ return document.getElementById(id); }
+    function submitForm(){
+        var formdata = new FormData();
+        formdata.append( "n", _("name-form1-5p").value );
+        formdata.append( "e", _("email-form1-5p").value );
+        formdata.append( "p", _("phone-form1-5p").value );
+        formdata.append( "m", _("message-form1-5p").value );
+        var ajax = new XMLHttpRequest();
+        ajax.open( "POST", "form_parser.php" );
+        ajax.onreadystatechange = function() {
+            if(ajax.readyState == 4 && ajax.status == 200) {
+                if(ajax.responseText == "success"){
+                    var $alert  = document.getElementById("success-form-mes");
+                    $alert.removeAttribute("hidden");
+                } else {
+                    var $alert  = document.getElementById("error-form-mes");
+                    $alert.removeAttribute("hidden");
+                }
+            }
+        }
+        ajax.send( formdata );
+    }
+</script>
   
  <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbri-down mbr-iconfont"></i></a></div>
   </body>
